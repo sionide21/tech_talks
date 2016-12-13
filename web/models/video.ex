@@ -15,6 +15,6 @@ defmodule TechTalks.Video do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:title, :url, :description])
-    |> validate_required([:title, :url, :description])
+    |> validate_required([:title, :url])
   end
 end
