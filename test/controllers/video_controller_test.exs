@@ -2,6 +2,18 @@ defmodule TechTalks.VideoControllerTest do
   use TechTalks.ConnCase
 
   alias TechTalks.Video
+
+  setup %{conn: conn} do
+    session = Plug.Session.init(store: :cookie, key: "bananas", signing_salt: "pepper")
+
+    authed_conn = conn
+    |> Plug.Session.call(session)
+    |> Plug.Conn.fetch_session
+    |> TechTalks.Auth.login
+
+    {:ok, conn: authed_conn}
+  end
+
   @valid_attrs %{description: "some content", title: "some content", url: "some content"}
   @invalid_attrs %{}
 

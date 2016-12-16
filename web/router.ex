@@ -9,6 +9,10 @@ defmodule TechTalks.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :logged_in do
+    plug TechTalks.Auth
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -17,7 +21,15 @@ defmodule TechTalks.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/videos", VideoController
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+
+    scope "/" do
+      pipe_through :logged_in
+
+      resources "/videos", VideoController
+    end
   end
 
   # Other scopes may use custom stacks.
