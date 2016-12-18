@@ -6,6 +6,6 @@
   onInit(function() {
     let Presenter = require("web/static/scripts/presenter").default;
     let playerDiv = document.getElementById("players");
-    new Presenter(playerDiv);
+    new Presenter(playerDiv, "<%= @session %>");
   });
 </script>

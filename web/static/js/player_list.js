@@ -1,23 +1,24 @@
 import { Presence } from 'phoenix';
+import Callback from "./callback";
 
 class PlayerList {
   constructor(channel) {
     this.presence = {};
-    this.listeners = [];
+    this.changeCallback = new Callback();
 
     channel.on('presence_state', initialPresence => {
       this.presence = Presence.syncState(this.presence, initialPresence);
-      this.changed();
+      this.changeCallback.trigger(this);
     });
 
     channel.on('presence_diff', diff => {
       this.presence = Presence.syncDiff(this.presence, diff);
-      this.changed();
+      this.changeCallback.trigger(this);
     });
   }
 
   onChange(fn) {
-    this.listeners.push(fn);
+    this.changeCallback.addListener(fn);
   }
 
   players() {
@@ -25,12 +26,6 @@ class PlayerList {
       playerId: id,
       status: this.presence[id].metas[0].status
     }));
-  }
-
-  changed() {
-    this.listeners.forEach(fn => {
-      fn(this);
-    });
   }
 }
 

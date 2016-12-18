@@ -1,14 +1,11 @@
 import PresenterChannel from "../js/presenter_channel"
 
-new PresenterChannel();
-
-
 class Presenter {
-  constructor(div) {
+  constructor(div, session) {
     this.div = div;
 
-    this.channel = new PresenterChannel();
-    this.channel.player_list.onChange(list => {
+    this.channel = new PresenterChannel(session);
+    this.channel.waitingPlayers.onChange(list => {
       this.renderList(list.players());
     });
   }

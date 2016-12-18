@@ -31,9 +31,13 @@ defmodule TechTalks.VideoController do
     render(conn, "show.html", video: video)
   end
 
-  def present(conn, %{"id" => id}) do
+  def present(conn, %{"id" => id, "session" => session}) do
     video = Repo.get!(Video, id)
-    render(conn, "present.html", video: video)
+    render(conn, "present.html", video: video, session: session)
+  end
+  def present(conn, %{"id" => id}) do
+    session = TechTalks.Random.string(12)
+    redirect(conn, to: video_path(conn, :present, id, session: session))
   end
 
   def edit(conn, %{"id" => id}) do

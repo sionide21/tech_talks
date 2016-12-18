@@ -17,6 +17,24 @@ defmodule TechTalks.PlayerChannel do
     {:ok, socket}
   end
 
+  def join("player:" <> _session, %{"presenter" => true}, socket) do
+    send(self, :sync_presence)
+    {:ok, assign(socket, :presenter, true)}
+  end
+  def join("player:" <> _session, %{"playerId" => player}, socket) do
+    send(self, :track_player)
+
+    socket = socket
+    |> assign(:presenter, false)
+    |> assign(:player, player)
+
+    {:ok, socket}
+  end
+  def join("player:" <> _session, _, _) do
+    {:error, %{reason: "invalid player id"}}
+  end
+
+
   def handle_in("playerStateChanged", %{"state" => state}, socket) do
     {:ok, _} = Presence.update(socket, socket.assigns.player, %{
       status: state

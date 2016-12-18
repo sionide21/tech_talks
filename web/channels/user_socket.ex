@@ -3,7 +3,6 @@ defmodule TechTalks.UserSocket do
 
   ## Channels
   channel "player:*", TechTalks.PlayerChannel
-  channel "presenter:lobby", TechTalks.PresenterChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket, timeout: 45_000
