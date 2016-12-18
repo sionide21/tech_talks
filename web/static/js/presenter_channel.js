@@ -3,7 +3,7 @@ import socket from "./socket"
 
 class PresenterChannel {
   constructor() {
-    this.channel = socket.channel("presenter:lobby", {});
+    this.channel = socket.channel("player:waiting", {presenter: true});
     this.channel.join()
       .receive("ok", resp => { console.log("Joined successfully", resp) })
       .receive("error", resp => { console.log("Unable to join", resp) });
