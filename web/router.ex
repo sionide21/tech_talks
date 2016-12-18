@@ -29,6 +29,7 @@ defmodule TechTalks.Router do
       pipe_through :logged_in
 
       resources "/videos", VideoController
+      get "/videos/:id/present", VideoController, :present
     end
   end
 

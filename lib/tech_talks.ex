@@ -12,6 +12,7 @@ defmodule TechTalks do
       supervisor(TechTalks.Repo, []),
       # Start the endpoint when the application starts
       supervisor(TechTalks.Endpoint, []),
+      supervisor(TechTalks.Presence, []),
       # Start your own worker by calling: TechTalks.Worker.start_link(arg1, arg2, arg3)
       # worker(TechTalks.Worker, [arg1, arg2, arg3]),
     ]

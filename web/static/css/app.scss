@@ -1,0 +1,24 @@
+/* This file is for your main application css. */
+#player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  .player-id {
+    color: #96b3a2;
+    font-size: 8em;
+    font-weight: bold;
+  }
+
+  .player-id--small {
+    font-size: 1.5em;
+    position: absolute;
+    bottom: 8px;
+    right: 13px;
+  }
+}

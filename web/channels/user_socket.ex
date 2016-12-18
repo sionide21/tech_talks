@@ -2,7 +2,8 @@ defmodule TechTalks.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", TechTalks.RoomChannel
+  channel "player:*", TechTalks.PlayerChannel
+  channel "presenter:lobby", TechTalks.PresenterChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket, timeout: 45_000

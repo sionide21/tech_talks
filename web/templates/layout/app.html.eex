@@ -9,6 +9,20 @@
 
     <title>Tech Talks</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script>
+      (function(ctx) {
+        let callbacks = [];
+        ctx.onInit = function(fn) {
+          callbacks.push(fn);
+        };
+        ctx.init = function() {
+          callbacks.forEach(function(fn) {
+            fn();
+          });
+          callbacks = [];
+        };
+      })(window);
+    </script>
   </head>
 
   <body>
@@ -22,5 +36,6 @@
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>init();</script>
   </body>
 </html>

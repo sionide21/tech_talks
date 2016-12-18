@@ -31,6 +31,11 @@ defmodule TechTalks.VideoController do
     render(conn, "show.html", video: video)
   end
 
+  def present(conn, %{"id" => id}) do
+    video = Repo.get!(Video, id)
+    render(conn, "present.html", video: video)
+  end
+
   def edit(conn, %{"id" => id}) do
     video = Repo.get!(Video, id)
     changeset = Video.changeset(video)
