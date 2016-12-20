@@ -64,7 +64,7 @@ class Player {
         playerVars: {
           modestbranding: 1,
           iv_load_policy: 3,
-          controls: 0,
+          // controls: 0,
           rel: 0,
           showinfo: 0
         },
