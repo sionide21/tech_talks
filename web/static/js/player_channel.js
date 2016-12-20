@@ -12,6 +12,10 @@ class PlayerChannel {
   playerStateChanged(state) {
     this.channel.push("playerStateChanged", {state});
   }
+
+  syncPlayerTime(time) {
+    this.channel.push("syncPlayerTime", {time});
+  }
 }
 
 export default PlayerChannel;

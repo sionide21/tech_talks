@@ -50,6 +50,11 @@ class Player {
     this.channel.playerStateChanged(state);
   }
 
+  syncPlayerTime() {
+    let time = this.player.getCurrentTime();
+    this.channel.syncPlayerTime(time);
+  }
+
   loadVideo(videoId) {
     this.awaitYoutube.then(() => {
       this.player = new YT.Player(this.playerId, {
@@ -72,6 +77,10 @@ class Player {
           }
         }
       });
+
+      this.timer = setInterval(() => {
+        this.syncPlayerTime();
+      }, 100);
     });
   }
 

@@ -28,7 +28,8 @@ class PlayerList {
   _buildPlayers(presence) {
     return Object.keys(presence).map(id => ({
       playerId: id,
-      status: this.presence[id].metas[0].status
+      status: this.presence[id].metas[0].status,
+      time: this.presence[id].metas[0].time
     }));
   }
 }

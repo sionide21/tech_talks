@@ -38,10 +38,10 @@ defmodule TechTalks.PlayerChannel do
 
 
   def handle_in("playerStateChanged", %{"state" => state}, socket) do
-    {:ok, _} = Presence.update(socket, socket.assigns.player, %{
-      status: state
-    })
-    {:noreply, socket}
+    {:noreply, update_presence(socket, %{status: state})}
+  end
+  def handle_in("syncPlayerTime", %{"time" => time}, socket) do
+    {:noreply, update_presence(socket, %{time: time})}
   end
   def handle_in("selectPlayer", %{"playerId" => playerId}, socket) do
     if socket.assigns.presenter do
@@ -57,6 +57,12 @@ defmodule TechTalks.PlayerChannel do
       broadcast!(socket, "command", payload)
     end
     {:noreply, socket}
+  end
+
+  defp update_presence(socket, presence) do
+    new_presence = Map.merge(socket.assigns.presence, presence)
+    {:ok, _} = Presence.update(socket, socket.assigns.player, new_presence)
+    assign(socket, :presence, new_presence)
   end
 
   intercept ["presence_diff", "selected"]
@@ -75,9 +81,8 @@ defmodule TechTalks.PlayerChannel do
   end
 
   def handle_info(:track_player, socket) do
-    {:ok, _} = Presence.track(socket, socket.assigns.player, %{
-      status: "waiting"
-    })
+    socket = assign(socket, :presence, %{status: "waiting", time: 0})
+    {:ok, _} = Presence.track(socket, socket.assigns.player, socket.assigns.presence)
     push socket, "identify", %{playerId: socket.assigns.player}
     {:noreply, socket}
   end
