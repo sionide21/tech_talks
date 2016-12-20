@@ -3,10 +3,10 @@ import LobbyChannel from "../js/lobby_channel"
 import $ from "jquery";
 
 class Presenter {
-  constructor(div, session) {
+  constructor(div, {session, video}) {
     this.div = div;
 
-    this.channel = new PresenterChannel(session);
+    this.channel = new PresenterChannel({session, video});
 
     this.lobby = new LobbyChannel({presenter: session});
     this.lobby.onAvailablePlayers(list => {

@@ -22,7 +22,11 @@ class PlayerList {
   }
 
   players() {
-    return Object.keys(this.presence).map(id => ({
+    return this._buildPlayers(this.presence);
+  }
+
+  _buildPlayers(presence) {
+    return Object.keys(presence).map(id => ({
       playerId: id,
       status: this.presence[id].metas[0].status
     }));

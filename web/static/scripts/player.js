@@ -1,4 +1,5 @@
 import PlayerChannel from "../js/player_channel"
+import LobbyChannel from "../js/lobby_channel"
 
 const PLAYER_STATE = {
  [-1]: "UNSTARTED",
@@ -15,11 +16,19 @@ class Player {
     this.awaitYoutube = awaitYoutube;
     this.div = div;
 
-    this.channel = new PlayerChannel();
+    this.lobby = new LobbyChannel();
+    this.lobby.onSelected(session => {
+      this._connect(session);
+      this.lobby.leave();
+    });
 
-    this.channel.on("identify", ({playerId}) => {
+    this.lobby.on("identify", ({playerId}) => {
       this.setPlayerId(playerId);
     });
+  }
+
+  _connect(session) {
+    this.channel = new PlayerChannel({session: session, playerId: this.playerId});
 
     this.channel.on("loadVideo", ({videoId}) => {
       this.videoId = videoId;

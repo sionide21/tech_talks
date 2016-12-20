@@ -17,12 +17,14 @@ defmodule TechTalks.PlayerChannel do
     {:ok, socket}
   end
 
-  def join("player:" <> _session, %{"presenter" => true}, socket) do
+  def join("player:" <> session, %{"presenter" => true, "video" => video}, socket) do
+    TechTalks.Session.set_video(session, video)
     send(self, :sync_presence)
     {:ok, assign(socket, :presenter, true)}
   end
-  def join("player:" <> _session, %{"playerId" => player}, socket) do
+  def join("player:" <> session, %{"playerId" => player}, socket) do
     send(self, :track_player)
+    send(self, {:load_video, TechTalks.Session.get_video(session)})
 
     socket = socket
     |> assign(:presenter, false)
@@ -71,6 +73,10 @@ defmodule TechTalks.PlayerChannel do
       status: "waiting"
     })
     push socket, "identify", %{playerId: socket.assigns.player}
+    {:noreply, socket}
+  end
+  def handle_info({:load_video, video}, socket) do
+    push socket, "loadVideo", %{videoId: video}
     {:noreply, socket}
   end
   def handle_info(:sync_presence, socket) do

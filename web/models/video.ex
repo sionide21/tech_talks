@@ -9,6 +9,12 @@ defmodule TechTalks.Video do
     timestamps()
   end
 
+  def id(video) do
+    ~r/\?v=([^\&]+)/
+    |> Regex.run(video.url)
+    |> Enum.at(1)
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """

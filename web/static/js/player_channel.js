@@ -2,9 +2,9 @@ import { joinChannel } from "./socket"
 
 
 class PlayerChannel {
-  constructor(player) {
-    this.channel = joinChannel("player:waiting", {});
-    this.player = player;
+  constructor({playerId, session}) {
+    this.channel = joinChannel("player:" + session, {playerId: playerId});
+    this.playerId = playerId;
 
     this.on = this.channel.on.bind(this.channel);
   }
