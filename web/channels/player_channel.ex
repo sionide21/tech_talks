@@ -52,6 +52,12 @@ defmodule TechTalks.PlayerChannel do
     end
     {:noreply, socket}
   end
+  def handle_in("command", payload, socket) do
+    if socket.assigns.presenter do
+      broadcast!(socket, "command", payload)
+    end
+    {:noreply, socket}
+  end
 
   intercept ["presence_diff", "selected"]
 

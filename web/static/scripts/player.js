@@ -34,6 +34,12 @@ class Player {
       this.videoId = videoId;
       this.redraw();
     });
+
+    this.channel.on("command", ({command, args}) => {
+      if (this[command]) {
+        this[command].apply(this, args);
+      }
+    });
   }
 
   setPlayerId(playerId) {
@@ -48,7 +54,7 @@ class Player {
 
   loadVideo(videoId) {
     this.awaitYoutube.then(() => {
-      return new YT.Player(this.playerId, {
+      this.player = new YT.Player(this.playerId, {
         height: "360",
         width: "640",
         videoId: videoId,
@@ -81,6 +87,12 @@ class Player {
     } else if (this.playerId) {
       this.div.innerHTML = `<div class="player-id">${this.playerId}</div>`;
     }
+  }
+
+  // commands
+
+  play() {
+    this.player.playVideo();
   }
 }
 

@@ -16,10 +16,15 @@ class Presenter {
     $(div).on("click", ".waiting-player", (e) => {
       this.addPlayer(e.target.dataset.player);
     });
+
+    $(div).on("click", ".play", (e) => {
+      this.channel.send("play");
+    });
   }
 
   renderList(players) {
     this.div.innerHTML = `
+      <div class="play">Play</div>
       <ul>
         ${players.map(this.renderWaitingPlayer).join("")}
       </ul>

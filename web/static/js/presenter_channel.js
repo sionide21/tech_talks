@@ -7,6 +7,10 @@ class PresenterChannel {
     this.players = new PlayerList(this.channel);
     this.video = video;
   }
+
+  send(command, args={}) {
+    this.channel.push("command", {command, args});
+  }
 }
 
 export default PresenterChannel;
