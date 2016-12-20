@@ -3,9 +3,9 @@ defmodule TechTalks.PlayerChannel do
   alias TechTalks.Presence
 
   # Eventually this will be stronger auth
-  def join("player:waiting", %{"presenter" => true}, socket) do
+  def join("player:waiting", %{"presenter" => presenter}, socket) do
     send(self, :sync_presence)
-    {:ok, assign(socket, :presenter, true)}
+    {:ok, assign(socket, :presenter, presenter)}
   end
   def join("player:waiting", _, socket) do
     send(self, :track_player)
@@ -41,12 +41,27 @@ defmodule TechTalks.PlayerChannel do
     })
     {:noreply, socket}
   end
+  def handle_in("selectPlayer", %{"playerId" => playerId}, socket) do
+    if socket.assigns.presenter do
+      broadcast!(socket, "selected", %{
+        presenter: socket.assigns.presenter,
+        playerId: playerId
+      })
+    end
+    {:noreply, socket}
+  end
 
-  intercept ["presence_diff"]
+  intercept ["presence_diff", "selected"]
 
   def handle_out("presence_diff", payload, socket) do
     if socket.assigns.presenter do
       push socket, "presence_diff", payload
+    end
+    {:noreply, socket}
+  end
+  def handle_out("selected", payload, socket) do
+    if socket.assigns[:player] == payload.playerId do
+      push socket, "selected", %{presenter: payload.presenter}
     end
     {:noreply, socket}
   end
