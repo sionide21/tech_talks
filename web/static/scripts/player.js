@@ -36,9 +36,7 @@ class Player {
     });
 
     this.channel.on("command", ({command, args}) => {
-      if (this[command]) {
-        this[command].apply(this, args);
-      }
+      new PlayerControls(this.player).run(command, args);
     });
   }
 
@@ -88,8 +86,18 @@ class Player {
       this.div.innerHTML = `<div class="player-id">${this.playerId}</div>`;
     }
   }
+}
 
-  // commands
+class PlayerControls {
+  constructor(player) {
+    this.player = player;
+  }
+
+  run(command, args) {
+    if (this[command]) {
+      this[command].apply(this, args);
+    }
+  }
 
   play() {
     this.player.playVideo();
