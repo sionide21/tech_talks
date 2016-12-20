@@ -1,42 +1,28 @@
+import AvailablePlayers from "./presenter/available_players"
+import Players from "./presenter/players"
+import Controls from "./presenter/controls"
 import PresenterChannel from "../js/presenter_channel"
-import LobbyChannel from "../js/lobby_channel"
 import $ from "jquery";
 
 class Presenter {
   constructor(div, {session, video}) {
     this.div = div;
-
     this.channel = new PresenterChannel({session, video});
 
-    this.lobby = new LobbyChannel({presenter: session});
-    this.lobby.onAvailablePlayers(list => {
-      this.renderList(list.players());
-    });
-
-    $(div).on("click", ".waiting-player", (e) => {
-      this.addPlayer(e.target.dataset.player);
-    });
-
-    $(div).on("click", ".play", (e) => {
-      this.channel.send("play");
-    });
-  }
-
-  renderList(players) {
     this.div.innerHTML = `
-      <div class="play">Play</div>
-      <ul>
-        ${players.map(this.renderWaitingPlayer).join("")}
-      </ul>
+      <div class="available-players"></div>
+      <div class="controls"></div>
+      <div class="players"></div>
     `;
+
+    this.availablePlayers = this._attachAt(".available-players", AvailablePlayers, session);
+    this.controls = this._attachAt(".controls", Controls, this.channel);
+    this.players = this._attachAt(".players", Players, this.channel);
   }
 
-  addPlayer(playerId) {
-    this.lobby.select(playerId);
-  }
-
-  renderWaitingPlayer(player) {
-    return `<li class="waiting-player" data-player="${player.playerId}">${player.playerId}</li>`;
+  _attachAt(selector, component, ...args) {
+    let div = $(selector, this.div)[0];
+    new component(div, ...args);
   }
 }
 

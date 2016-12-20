@@ -102,6 +102,10 @@ class PlayerControls {
   play() {
     this.player.playVideo();
   }
+
+  pause() {
+    this.player.pauseVideo();
+  }
 }
 
 export default Player;

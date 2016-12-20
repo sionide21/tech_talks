@@ -24,7 +24,10 @@
 }
 
 #players {
-  .waiting-player {
+  display: flex;
+  justify-content: space-between;
+
+  .available-player {
     cursor: pointer;
 
     &:hover {
@@ -32,6 +35,33 @@
 
       &:after {
         content: " +";
+      }
+    }
+  }
+
+  .controls {
+
+    .controls--buttons {
+      display: flex;
+      justify-content: space-around;
+
+      .control {
+        cursor: pointer;
+        box-sizing: content-box;
+
+        &.play {
+          width: 0;
+          height: 0;
+          border-top: 8px solid transparent;
+          border-left: 12px solid #000;
+          border-bottom: 8px solid transparent;
+        }
+        &.pause {
+          width: 4px;
+          height: 16px;
+          border-right: 4px solid #000;
+          border-left: 4px solid #000;
+        }
       }
     }
   }
