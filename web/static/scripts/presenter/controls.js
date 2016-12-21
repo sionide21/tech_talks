@@ -11,6 +11,7 @@ class Controls {
       <div class="controls--buttons">
         <div class="control play"></div>
         <div class="control pause"></div>
+        <div class="control syncPlayers">sync</div>
       </div>
     `;
 
@@ -19,6 +20,12 @@ class Controls {
     });
     $(div).on("click", ".pause", (e) => {
       this.channel.send("pause");
+    });
+    $(div).on("click", ".syncPlayers", (e) => {
+      let players = this.channel.players.players(),
+          times = players.map(p => p.time),
+          earliest = Math.min(...times);
+      this.channel.send("seekTo", earliest);
     });
   }
 }

@@ -115,6 +115,10 @@ class PlayerControls {
   pause() {
     this.player.pauseVideo();
   }
+
+  seekTo(time) {
+    this.player.seekTo(time, true);
+  }
 }
 
 export default Player;

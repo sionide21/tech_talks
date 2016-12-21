@@ -10,7 +10,7 @@ class PresenterChannel {
     this.onPlayersChanged = this.players.onChange.bind(this.players);
   }
 
-  send(command, args={}) {
+  send(command, ...args) {
     this.channel.push("command", {command, args});
   }
 }
