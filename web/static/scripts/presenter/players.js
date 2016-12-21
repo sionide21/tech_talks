@@ -8,6 +8,11 @@ class Players {
     this.channel.onPlayersChanged(list => {
       this.renderPlayers(list.players());
     });
+
+    $(div).on("click", "dd.player--time", (e) => {
+      let time = e.target.dataset.time;
+      this.channel.send("seekTo", time);
+    });
   }
 
   renderPlayers(players) {
@@ -25,7 +30,7 @@ class Players {
           <dt class="player--status">Status</dt>
           <dd class="player--status">${player.status}</dd>
           <dt class="player--time">Time</dt>
-          <dd class="player--time">${renderDuration(player.time)}</dd>
+          <dd class="player--time" data-time="${player.time}">${renderDuration(player.time)}</dd>
         </dl>
       </div>
     `;
