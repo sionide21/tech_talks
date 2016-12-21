@@ -120,6 +120,10 @@ class PlayerControls {
   seekTo(time) {
     this.player.seekTo(time, true);
   }
+
+  toggleFullscreen() {
+    this.player.getIframe().webkitRequestFullScreen();
+  }
 }
 
 export default Player;

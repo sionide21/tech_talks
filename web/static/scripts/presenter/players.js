@@ -8,6 +8,11 @@ class Players {
     this.channel.onPlayersChanged(list => {
       this.renderPlayers(list.players());
     });
+
+    $(div).on("click", ".fullscreen", (e) => {
+      let playerId = e.target.dataset.playerId;
+      this.channel.sendDirect(playerId, "toggleFullscreen");
+    });
   }
 
   renderPlayers(players) {
@@ -21,6 +26,7 @@ class Players {
     return `
       <div class="player">
         <h3>${player.playerId}</h3>
+        <div class="fullscreen" data-player-id="${player.playerId}">Toggle Fullscreen</div>
         <dl>
           <dt class="player--status">Status</dt>
           <dd class="player--status">${player.status}</dd>

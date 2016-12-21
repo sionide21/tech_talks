@@ -13,6 +13,10 @@ class PresenterChannel {
   send(command, ...args) {
     this.channel.push("command", {command, args});
   }
+
+  sendDirect(playerId, command, ...args) {
+    this.channel.push("command", {playerId, command, args});
+  }
 }
 
 export default PresenterChannel;

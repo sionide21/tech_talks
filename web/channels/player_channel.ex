@@ -65,7 +65,7 @@ defmodule TechTalks.PlayerChannel do
     assign(socket, :presence, new_presence)
   end
 
-  intercept ["presence_diff", "selected"]
+  intercept ["presence_diff", "selected", "command"]
 
   def handle_out("presence_diff", payload, socket) do
     if socket.assigns.presenter do
@@ -77,6 +77,16 @@ defmodule TechTalks.PlayerChannel do
     if socket.assigns[:player] == payload.playerId do
       push socket, "selected", %{presenter: payload.presenter}
     end
+    {:noreply, socket}
+  end
+  def handle_out("command", %{"playerId" => playerId} = payload, socket) do
+    if socket.assigns[:player] == playerId do
+      push(socket, "command", payload)
+    end
+    {:noreply, socket}
+  end
+  def handle_out("command", payload, socket) do
+    push(socket, "command", payload)
     {:noreply, socket}
   end
 
