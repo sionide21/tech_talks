@@ -4,21 +4,12 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Url</th>
-
-      <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for video <- @videos do %>
     <tr>
-      <td><%= video.title %></td>
-      <td><%= video.url %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: video_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %>
-      </td>
+      <td class="plain"><%= link video.title, to: video_path(@conn, :show, video) %></td>
     </tr>
 <% end %>
   </tbody>
