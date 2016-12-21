@@ -73,16 +73,15 @@ class Player {
         events: {
           onReady: (event) => {
             this.playerStateChanged(event.target.getPlayerState());
+            this.timer = setInterval(() => {
+              this.syncPlayerTime();
+            }, 100);
           },
           onStateChange: (event) => {
             this.playerStateChanged(event.data);
           }
         }
       });
-
-      this.timer = setInterval(() => {
-        this.syncPlayerTime();
-      }, 100);
     });
   }
 
