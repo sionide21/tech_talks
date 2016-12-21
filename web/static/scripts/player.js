@@ -52,6 +52,8 @@ class Player {
 
   syncPlayerTime() {
     let time = this.player.getCurrentTime();
+    if (time === this.playerTime) { return; }
+    this.playerTime = time;
     this.channel.syncPlayerTime(time);
   }
 
