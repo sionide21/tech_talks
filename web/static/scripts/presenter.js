@@ -10,9 +10,11 @@ class Presenter {
     this.channel = new PresenterChannel({session, video});
 
     this.div.innerHTML = `
-      <div class="available-players"></div>
-      <div class="controls"></div>
-      <div class="players"></div>
+      <div class="controls column"></div>
+      <div class="wrap-together">
+        <div class="available-players column"></div>
+        <div class="players column"></div>
+      </div>
     `;
 
     this.availablePlayers = this._attachAt(".available-players", AvailablePlayers, session);

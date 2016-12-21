@@ -9,9 +9,9 @@ class Controls {
       <h4>Controls</h4>
 
       <div class="controls--buttons">
-        <div class="control play"></div>
-        <div class="control pause"></div>
-        <div class="control syncPlayers">sync</div>
+        <div class="control play"><div></div></div>
+        <div class="control pause"><div></div></div>
+        <div class="control syncPlayers">Sync</div>
       </div>
     `;
 

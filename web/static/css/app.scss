@@ -37,7 +37,26 @@
 
 #players {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+
+  h4 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .column {
+    width: 200px;
+    flex-grow: 1;
+    padding: 8px;
+  }
+
+  .wrap-together {
+    display: inherit;
+    flex-wrap: inherit;
+    flex-grow: 1;
+    justify-content: inherit;
+  }
 
   .available-player {
     box-shadow: 1px 1px 3px #888;
@@ -96,20 +115,39 @@
 
       .control {
         cursor: pointer;
-        box-sizing: content-box;
+        -webkit-user-select: none;
 
-        &.play {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+
+        box-shadow: 1px 1px 1px black;
+
+        width: 60px;
+        border: solid thin;
+
+        &:active {
+          box-shadow: inset 0.2px 0.2px 0.2px black;
+        }
+
+        &.play div {
+          box-sizing: content-box;
           width: 0;
           height: 0;
           border-top: 8px solid transparent;
           border-left: 12px solid #000;
           border-bottom: 8px solid transparent;
         }
-        &.pause {
+        &.pause div {
+          box-sizing: content-box;
           width: 4px;
           height: 16px;
           border-right: 4px solid #000;
           border-left: 4px solid #000;
+        }
+        &.syncPlayers {
+          font-weight: bold;
         }
       }
     }
