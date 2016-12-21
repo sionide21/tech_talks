@@ -18,10 +18,8 @@ class AvailablePlayers {
 
   renderList(players) {
     this.div.innerHTML = `
-      <h2>Available Players</h2>
-      <ul>
-        ${players.map(this.renderWaitingPlayer).join("")}
-      </ul>
+      <h4>Available Players</h4>
+      ${players.map(this.renderWaitingPlayer).join("")}
     `;
   }
 
@@ -30,7 +28,11 @@ class AvailablePlayers {
   }
 
   renderWaitingPlayer(player) {
-    return `<li class="available-player" data-player="${player.playerId}">${player.playerId}</li>`;
+    return `
+      <div class="available-player" data-player="${player.playerId}">
+        ${player.playerId}
+      </div>
+    `;
   }
 }
 

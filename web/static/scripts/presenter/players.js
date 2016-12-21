@@ -12,7 +12,7 @@ class Players {
 
   renderPlayers(players) {
     this.div.innerHTML = `
-      <h2>Attached Players</h2>
+      <h4>Attached Players</h4>
       ${players.map(this.renderPlayer).join("")}
     `;
   }
@@ -20,7 +20,7 @@ class Players {
   renderPlayer(player) {
     return `
       <div class="player">
-        <h3>${player.playerId}</h3>
+        <strong>${player.playerId}</strong>
         <dl>
           <dt class="player--status">Status</dt>
           <dd class="player--status">${player.status}</dd>

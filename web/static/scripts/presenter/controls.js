@@ -6,7 +6,7 @@ class Controls {
     this.channel = channel;
 
     this.div.innerHTML = `
-      <h2>Controls</h2>
+      <h4>Controls</h4>
 
       <div class="controls--buttons">
         <div class="control play"></div>

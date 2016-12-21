@@ -1,23 +1,15 @@
-<h2>Show video</h2>
+<h3><%= @video.title %></h3>
+<%= link "Present video", to: video_path(@conn, :present, @video) %>
 
-<ul>
+<dl class="video">
+  <dt>Link</dt>
+  <dd><a href="<%= @video.url %>"><%= @video.url %></a></dd>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @video.title %>
-  </li>
+  <dt>Description</dt>
+  <dd class="description"><%= @video.description %></dd>
+</dl>
 
-  <li>
-    <strong>Url:</strong>
-    <%= @video.url %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @video.description %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: video_path(@conn, :edit, @video) %>
-<%= link "Back", to: video_path(@conn, :index) %>
+<div class="links">
+  <%= link "All videos", to: video_path(@conn, :index) %>
+  <%= link "Edit", to: video_path(@conn, :edit, @video) %>
+</div>

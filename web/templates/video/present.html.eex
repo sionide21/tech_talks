@@ -1,6 +1,7 @@
+<h3><%= @video.title %></h3>
 <div id="players"></div>
 
-<%= link "Back", to: video_path(@conn, :index) %>
+<%= link "Back", to: video_path(@conn, :show, @video) %>
 
 <script>
   onInit(function() {
