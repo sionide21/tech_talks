@@ -1,5 +1,6 @@
 import PlayerChannel from "../js/player_channel"
 import LobbyChannel from "../js/lobby_channel"
+import $ from "jquery";
 
 const PLAYER_STATE = {
  [-1]: "UNSTARTED",
@@ -48,6 +49,7 @@ class Player {
   playerStateChanged(stateCode) {
     let state = PLAYER_STATE[stateCode] || `UNKNOWN(${stateCode})`;
     this.channel.playerStateChanged(state);
+    $(this.div).toggleClass("playing", state === "PLAYING");
   }
 
   syncPlayerTime() {
@@ -60,8 +62,6 @@ class Player {
   loadVideo(videoId) {
     this.awaitYoutube.then(() => {
       this.player = new YT.Player(this.playerId, {
-        height: "360",
-        width: "640",
         videoId: videoId,
         playerVars: {
           modestbranding: 1,
