@@ -1,7 +1,9 @@
-<h3><%= @video.title %></h3>
-<div id="players"></div>
+<div class="prevent-highlight">
+  <h3><%= @video.title %></h3>
+  <div id="players"></div>
 
-<%= link "Back", to: video_path(@conn, :show, @video) %>
+  <%= link "Back", to: video_path(@conn, :show, @video) %>
+</div>
 
 <script>
   onInit(function() {
